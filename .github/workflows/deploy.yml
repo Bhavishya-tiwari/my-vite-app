@@ -31,5 +31,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # Deploy to gh-pages branch
-          folder: dist       # Deploy the build output folder
+            token: ${{ secrets.GH_PAT }}  # Use the secret token
+            branch: gh-pages
+            folder: dist
+      
