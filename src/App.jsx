@@ -2,7 +2,9 @@ function App() {
 
   return (
     <>
-      <p>bihhihihih</p>
+        <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
     </>
   )
 }
