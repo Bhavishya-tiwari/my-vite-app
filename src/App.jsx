@@ -5,7 +5,7 @@ import Contact from "./pages/Contact";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/my-vite-app">
       {/* Navbar */}
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto flex justify-between items-center">
@@ -44,8 +44,8 @@ function App() {
 
       {/* Main Content */}
       <main className="container mx-auto p-4">
-        <Routes path="/">
-          <Route path="" element={<Home />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
         </Routes>
