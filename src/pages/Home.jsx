@@ -6,7 +6,7 @@ function About() {
       <h1 className="text-3xl font-bold">About Page</h1>
       <p>Learn more about us.</p>
 
-      {/* Iframe embedding the external Pricing Page */}
+      {/* Iframe embedding the external zPricing Page */}
       <iframe
         src="https://bhavishya-tiwari.github.io/Pricing-PageHTML/"
         width="100%"
