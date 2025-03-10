@@ -7,5 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: '/my-vite-app/', // This is for setting the base path when deploying to a subdirectory.
+  base: '/', // This is for setting the base path when deploying to a subdirectory.
 });
