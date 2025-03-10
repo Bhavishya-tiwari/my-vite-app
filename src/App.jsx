@@ -1,36 +1,56 @@
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+
 function App() {
   return (
-    <>
+    <Router>
       {/* Navbar */}
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <a href="/" className="text-white text-xl font-bold">
+          <NavLink to="/" className="text-white text-xl font-bold">
             MyLogo
-          </a>
+          </NavLink>
           <div className="space-x-4">
-            <a href="/" className="text-gray-300 hover:text-white">
+            <NavLink 
+              to="/" 
+              end
+              className={({ isActive }) => 
+                isActive ? "text-white font-bold" : "text-gray-300 hover:text-white"
+              }
+            >
               Home
-            </a>
-            <a href="/about" className="text-gray-300 hover:text-white">
+            </NavLink>
+            <NavLink 
+              to="/about" 
+              className={({ isActive }) => 
+                isActive ? "text-white font-bold" : "text-gray-300 hover:text-white"
+              }
+            >
               About
-            </a>
-            <a href="/contact" className="text-gray-300 hover:text-white">
+            </NavLink>
+            <NavLink 
+              to="/contact" 
+              className={({ isActive }) => 
+                isActive ? "text-white font-bold" : "text-gray-300 hover:text-white"
+              }
+            >
               Contact
-            </a>
+            </NavLink>
           </div>
         </div>
       </nav>
 
       {/* Main Content */}
       <main className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold underline">
-          Hello world!
-        </h1>
-        <p className="mt-4">
-          Welcome to our homepage. This is a simple example of a homepage layout with a navbar.
-        </p>
+        <Routes path="/">
+          <Route path="" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+        </Routes>
       </main>
-    </>
+    </Router>
   );
 }
 
