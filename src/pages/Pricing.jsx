@@ -57,6 +57,7 @@ function Pricing() {
       id="pricify-hosted-pricing-page"
       data-pricify-site="01JN5WKGC6GSN9542J6KS3TS7G"
       data-pricify-pricingpage="01JN5WKHRJPY5EC0EY7GYPVK01"
+      data-pricify-gtmid="GTM-NF3XNJSN"
     ></div>
   );
 }
