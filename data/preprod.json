@@ -1,0 +1,45 @@
+{
+  "ungroupped": {
+    "siteid": "01JKFVDES1NS0PNRBATT3XKT5W",
+    "pricingpageid": "01JV5D4KWH66K2XSFYH6779KAW",
+    "pricify-host": "http://localhost:8764",
+    "gtmid": "GTM-NF3XNJSN",
+    "variantid": null
+  },
+  "groupped": {
+    "siteid": "01JKFVDES1NS0PNRBATT3XKT5W",
+    "pricingpageid": "01JPKXXTXSMAFFCRWPZF77BNMC",
+    "pricify-host": "http://localhost:8764",
+    "gtmid": "GTM-NF3XNJSN",
+    "variantid": null,
+    "sessionData": {
+      "id": "240cd56547864a75b5d8e8a4f200f292",
+      "url": "https://hosted.devpricify.com/sites/01JKFVDES1NS0PNRBATT3XKT5W/pricing-session/240cd56547864a75b5d8e8a4f200f292",
+      "created_at": 1747167258,
+      "expires_at": 1747170858,
+      "object": "pricing_page_session"
+    }
+  },
+  "sessionUngroupped": {
+    "gtmid": "GTM-NF3XNJSN",
+    "variantid": null,
+    "sessionData": {
+      "id": "6968daa6780d4f5d88626a9e1ad9758c",
+      "url": "https://hosted.devpricify.com/sites/01JKFVDES1NS0PNRBATT3XKT5W/pricing-session/6968daa6780d4f5d88626a9e1ad9758c",
+      "created_at": 1747167777,
+      "expires_at": 1747171377,
+      "object": "pricing_page_session"
+    }
+  },
+  "sessionGroupped": {
+    "gtmid": "GTM-NF3XNJSN",
+    "variantid": null,
+    "sessionData": {
+      "id": "240cd56547864a75b5d8e8a4f200f292",
+      "url": "https://hosted.devpricify.com/sites/01JKFVDES1NS0PNRBATT3XKT5W/pricing-session/240cd56547864a75b5d8e8a4f200f292",
+      "created_at": 1747167258,
+      "expires_at": 9796789093,
+      "object": "pricing_page_session"
+    }
+  }
+}
