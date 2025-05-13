@@ -1,19 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import { EnvContext } from "../App";
-
 import Pricify from '@chargebee/atomicpricing';
+
 function Groupped() {
   const { env } = useContext(EnvContext);
   const [data, setData] = useState(null);
   const [globals, setGlobals] = useState(null);
 
   useEffect(() => {
-    fetch("/my-vite-app/data.json")
-      .then((res) => res.json())
-      .then((json) => {
-        setData(json[env]?.groupped);
-        setGlobals(json.globals);
-      });
+    // Fetch globals and env data in parallel
+    Promise.all([
+      fetch("/my-vite-app/data/globals.json").then((res) => res.json()),
+      fetch(`/my-vite-app/data/${env}.json`).then((res) => res.json()),
+    ]).then(([globalsJson, envJson]) => {
+      setGlobals(globalsJson);
+      setData(envJson.groupped);
+    });
   }, [env]);
 
   useEffect(() => {

@@ -6,9 +6,9 @@ function SessionGroupped({ subsId }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("/my-vite-app/data.json")
+    fetch(`/my-vite-app/data/${env}.json`)
       .then((res) => res.json())
-      .then((json) => setData(json[env]?.sessionGroupped));
+      .then((json) => setData(json.sessionGroupped));
   }, [env]);
 
   // Extract siteId from sessionData.url

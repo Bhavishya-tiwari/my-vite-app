@@ -1,0 +1,41 @@
+{
+  "visitor": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1-123-456-7890",
+    "company": "Example Inc."
+  },
+  "billingAddress": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1-123-456-7890",
+    "company": "Example Inc.",
+    "line1": "123 Main St",
+    "line2": "Apt 4B",
+    "city": "New York",
+    "stateCode": "NY",
+    "zip": "10001",
+    "country": "US"
+  },
+  "shippingAddress": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1-123-456-7890",
+    "company": "Example Inc.",
+    "line1": "456 Elm St",
+    "line2": "Suite 200",
+    "city": "Los Angeles",
+    "stateCode": "CA",
+    "zip": "90002",
+    "country": "US"
+  },
+  "subscriptionAttributes": {
+    "customFields": {
+      "cf_Modification": "My custom Value",
+      "cf_url": "https://test3019-test.chargebee.com/d/subscriptions/Azz2xoUfjFtCr10U6"
+    }
+  }
+}

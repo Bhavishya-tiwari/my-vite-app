@@ -1,0 +1,38 @@
+{
+  "ungroupped": {
+    "siteid": "DEV_SITE_ID",
+    "pricingpageid": "DEV_PRICINGPAGE_ID",
+    "pricify-host": "http://localhost:8764",
+    "gtmid": "GTM-NF3XNJSN",
+    "variantid": null
+  },
+  "groupped": {
+    "siteid": "DEV_SITE_ID",
+    "pricingpageid": "DEV_GROUPPED_PRICINGPAGE_ID",
+    "pricify-host": "http://localhost:8764",
+    "gtmid": "GTM-NF3XNJSN",
+    "variantid": null
+  },
+  "sessionUngroupped": {
+    "gtmid": "GTM-NF3XNJSN",
+    "variantid": null,
+    "sessionData": {
+      "id": "8cde256f9336411e910fbc0bca0c4443",
+      "url": "http://localhost:8764/sites/DEV_SITE_ID/pricing-session/8cde256f9336411e910fbc0bca0c4443",
+      "created_at": 1746777336,
+      "expires_at": 9796789093,
+      "object": "pricing_page_session"
+    }
+  },
+  "sessionGroupped": {
+    "gtmid": "GTM-NF3XNJSN",
+    "variantid": null,
+    "sessionData": {
+      "id": "8cde256f9336411e910fbc0bca0c4443",
+      "url": "http://localhost:8764/sites/DEV_SITE_ID/pricing-session/8cde256f9336411e910fbc0bca0c4443",
+      "created_at": 1746777336,
+      "expires_at": 9796789093,
+      "object": "pricing_page_session"
+    }
+  }
+}

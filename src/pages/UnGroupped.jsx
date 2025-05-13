@@ -8,12 +8,14 @@ function UnGroupped() {
   const [globals, setGlobals] = useState(null);
 
   useEffect(() => {
-    fetch("/my-vite-app/data.json")
-      .then((res) => res.json())
-      .then((json) => {
-        setData(json[env]?.ungroupped);
-        setGlobals(json.globals);
-      });
+    // Fetch globals and env data in parallel
+    Promise.all([
+      fetch("/my-vite-app/data/globals.json").then((res) => res.json()),
+      fetch(`/my-vite-app/data/${env}.json`).then((res) => res.json()),
+    ]).then(([globalsJson, envJson]) => {
+      setGlobals(globalsJson);
+      setData(envJson.ungroupped);
+    });
   }, [env]);
 
   useEffect(() => {
