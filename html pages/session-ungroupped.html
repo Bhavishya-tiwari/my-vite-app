@@ -32,11 +32,68 @@
   </head>
 
   <body style="background-color: black">
+    <div style="margin: 32px auto; max-width: 420px; text-align: center;">
+      <input
+        id="subsIdInput"
+        type="text"
+        placeholder="Subscription ID"
+        style="color: #fff !important; background: #222; border: 1px solid #555; border-radius: 6px; padding: 8px 12px; width: 220px; margin-right: 8px; caret-color: #fff !important;"
+        autocomplete="off"
+        onfocus="this.style.color='#fff';"
+        onblur="this.style.color='#fff';"
+      />
+      <button
+        id="subsIdBtn"
+        style="background: #2563eb; color: white; border: none; border-radius: 6px; padding: 8px 18px; font-weight: 600; cursor: pointer;"
+      >
+        Set Subscription ID
+      </button>
+      <div id="subsIdDisplay" style="margin-top: 16px; color: #60a5fa; font-family: monospace; font-size: 1.1em;"></div>
+    </div>
     <div
       id="pricify-hosted-pricing-page"
-      data-pricify-host="http://localhost:8764"
       data-pricify-gtmid="GTM-NF3XNJSN"
       data-pricify-integrationtype="api"
     ></div>
+    <script>
+      // --- ENVIRONMENT HANDLING ---
+      // Default env
+      let env = "dev";
+      // Add environment selector UI
+      const envSelector = document.createElement('select');
+      envSelector.style = "margin: 16px auto 0; display: block; background: #222; color: #fff; border-radius: 6px; border: 1px solid #555; padding: 6px 12px;";
+      ["dev", "preprod", "prod"].forEach(e => {
+        const opt = document.createElement('option');
+        opt.value = e;
+        opt.textContent = e.charAt(0).toUpperCase() + e.slice(1);
+        envSelector.appendChild(opt);
+      });
+      envSelector.value = env;
+      document.body.insertBefore(envSelector, document.body.children[1]);
+
+      function updatePricifyHostAttr() {
+        const div = document.getElementById('pricify-hosted-pricing-page');
+        div.removeAttribute('data-pricify-host');
+        if (env === "dev") {
+          div.setAttribute('data-pricify-host', 'http://localhost:8764');
+        } else if (env === "preprod") {
+          div.setAttribute('data-pricify-host', 'https://hosted.devpricify.com');
+        }
+        // prod: do not set attribute
+      }
+      envSelector.onchange = function() {
+        env = envSelector.value;
+        updatePricifyHostAttr();
+      };
+      // Initial set
+      updatePricifyHostAttr();
+
+      document.getElementById('subsIdBtn').onclick = function() {
+        var val = document.getElementById('subsIdInput').value;
+        document.getElementById('subsIdDisplay').textContent = val
+          ? "Subscription ID: " + val
+          : "";
+      };
+    </script>
   </body>
 </html>

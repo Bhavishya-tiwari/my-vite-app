@@ -1,5 +1,5 @@
 // src/App.jsx
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import * as Tooltip from '@radix-ui/react-tooltip';
 
@@ -7,34 +7,59 @@ import UnGroupped from "./pages/UnGroupped";
 import Groupped from "./pages/Groupped";
 import SessionUnGroupped from "./pages/SessionUnGroupped";
 import SessionGroupped from "./pages/SessionGroupped";
+import { SubsIdContext } from "./main"; // Import the context
 
 export const EnvContext = createContext();
 
-const PAGE_OPTIONS = [
-  { value: "ungroupped", label: "UnGroupped" },
-  { value: "groupped", label: "Groupped" },
-  { value: "session-ungroupped", label: "Session-Ungroupped" },
-  { value: "session-groupped", label: "Session-Groupped" }
-];
+function App({
+  groupOptions,
+  userOptions,
+  environments
+}) {
+  const [env, setEnv] = useState(environments?.[0]?.value || "prod");
+  const [groupType, setGroupType] = useState(groupOptions?.[0]?.value || "ungroupped");
+  const [userType, setUserType] = useState(userOptions?.[0]?.value || "new-user");
+  const { getSubsId, setSubsId } = useContext(SubsIdContext);
 
-function App() {
-  const [env, setEnv] = useState("prod");
-  const [page, setPage] = useState("ungroupped");
+  // Local state to force re-render and provide controlled input
+  const [subsIdInput, setSubsIdInput] = useState(() => getSubsId(env, groupType));
 
+  // Sync local state with context when env/groupType changes
+  useEffect(() => {
+    setSubsIdInput(getSubsId(env, groupType));
+  }, [env, groupType, getSubsId]);
+
+  // When input changes, update both local state and context
+  const handleSubsIdChange = (e) => {
+    setSubsIdInput(e.target.value);
+    setSubsId(env, groupType, e.target.value);
+  };
+
+  // Preload Pricify script on app mount
+  useEffect(() => {
+    // Only add if not already present
+    if (!document.querySelector('script[src="https://js.chargebee.com/atomicpricing/pricify.js"]')) {
+      const script = document.createElement("script");
+      script.src = "https://js.chargebee.com/atomicpricing/pricify.js";
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  // Compute page based on toggles
   let PageComponent;
-  switch (page) {
-    case "groupped":
-      PageComponent = Groupped;
-      break;
-    case "session-ungroupped":
-      PageComponent = SessionUnGroupped;
-      break;
-    case "session-groupped":
-      PageComponent = SessionGroupped;
-      break;
-    case "ungroupped":
-    default:
-      PageComponent = UnGroupped;
+  let pageProps = {};
+  if (groupType === "ungroupped" && userType === "new-user") {
+    PageComponent = UnGroupped;
+  } else if (groupType === "groupped" && userType === "new-user") {
+    PageComponent = Groupped;
+  } else if (groupType === "ungroupped" && userType === "session") {
+    PageComponent = SessionUnGroupped;
+    pageProps = { subsId: subsIdInput };
+  } else {
+    PageComponent = SessionGroupped;
+    pageProps = { subsId: subsIdInput };
   }
 
   return (
@@ -46,23 +71,24 @@ function App() {
           <div className="flex items-center space-x-3">
             <span className="text-2xl font-extrabold text-blue-400 tracking-tight select-none">MyViteApp</span>
           </div>
-          {/* Center: Page ToggleGroup */}
-          <div className="flex items-center">
+          {/* Center: Two Toggles */}
+          <div className="flex items-center space-x-4">
+            {/* Groupped/Ungroupped Toggle */}
             <ToggleGroup.Root
               type="single"
-              value={page}
-              onValueChange={(value) => value && setPage(value)}
+              value={groupType}
+              onValueChange={(value) => value && setGroupType(value)}
               className="flex bg-gray-800 rounded-xl shadow-inner border border-gray-700 overflow-hidden"
-              aria-label="Page"
+              aria-label="Group Type"
             >
-              {PAGE_OPTIONS.map(({ value, label }, idx, arr) => (
+              {groupOptions.map(({ value, label }, idx, arr) => (
                 <Tooltip.Provider key={value}>
                   <Tooltip.Root>
                     <Tooltip.Trigger asChild>
                       <ToggleGroup.Item
                         value={value}
                         className={`flex items-center px-4 py-2 font-medium transition-colors duration-150
-                          ${page === value
+                          ${groupType === value
                             ? "bg-blue-500 text-white shadow-inner ring-2 ring-blue-400"
                             : "text-white hover:bg-blue-700 hover:text-white"}
                           ${idx === 0 ? "rounded-l-xl" : ""}
@@ -78,7 +104,46 @@ function App() {
                         side="bottom"
                         className="bg-gray-900 text-white px-3 py-1 rounded shadow text-xs"
                       >
-                        {label} page
+                        {label}
+                        <Tooltip.Arrow className="fill-gray-900" />
+                      </Tooltip.Content>
+                    </Tooltip.Portal>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
+              ))}
+            </ToggleGroup.Root>
+            {/* Session/New User Toggle */}
+            <ToggleGroup.Root
+              type="single"
+              value={userType}
+              onValueChange={(value) => value && setUserType(value)}
+              className="flex bg-gray-800 rounded-xl shadow-inner border border-gray-700 overflow-hidden"
+              aria-label="User Type"
+            >
+              {userOptions.map(({ value, label }, idx, arr) => (
+                <Tooltip.Provider key={value}>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <ToggleGroup.Item
+                        value={value}
+                        className={`flex items-center px-4 py-2 font-medium transition-colors duration-150
+                          ${userType === value
+                            ? "bg-blue-500 text-white shadow-inner ring-2 ring-blue-400"
+                            : "text-white hover:bg-blue-700 hover:text-white"}
+                          ${idx === 0 ? "rounded-l-xl" : ""}
+                          ${idx === arr.length - 1 ? "rounded-r-xl" : ""}
+                        `}
+                        style={{ borderRight: idx < arr.length - 1 ? '1px solid #374151' : undefined }}
+                      >
+                        <span className="hidden sm:inline">{label}</span>
+                      </ToggleGroup.Item>
+                    </Tooltip.Trigger>
+                    <Tooltip.Portal>
+                      <Tooltip.Content
+                        side="bottom"
+                        className="bg-gray-900 text-white px-3 py-1 rounded shadow text-xs"
+                      >
+                        {label}
                         <Tooltip.Arrow className="fill-gray-900" />
                       </Tooltip.Content>
                     </Tooltip.Portal>
@@ -87,7 +152,7 @@ function App() {
               ))}
             </ToggleGroup.Root>
           </div>
-          {/* Right: Env Toggle */}
+          {/* Right: Env Toggle and Subscription ID */}
           <div className="flex items-center space-x-4">
             <Tooltip.Provider>
               <Tooltip.Root>
@@ -99,33 +164,20 @@ function App() {
                     className="inline-flex bg-gray-800 rounded-lg shadow-inner border border-gray-700"
                     aria-label="Environment"
                   >
-                    <ToggleGroup.Item
-                      value="prod"
-                      className={`px-3 py-1.5 rounded-l-lg font-semibold transition-colors
-                        ${env === "prod"
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-800 text-gray-200 hover:bg-blue-700 hover:text-white"}`}
-                    >
-                      Prod
-                    </ToggleGroup.Item>
-                    <ToggleGroup.Item
-                      value="preprod"
-                      className={`px-3 py-1.5 font-semibold transition-colors
-                        ${env === "preprod"
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-800 text-gray-200 hover:bg-blue-700 hover:text-white"}`}
-                    >
-                      Pre-Prod
-                    </ToggleGroup.Item>
-                    <ToggleGroup.Item
-                      value="dev"
-                      className={`px-3 py-1.5 rounded-r-lg font-semibold transition-colors
-                        ${env === "dev"
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-800 text-gray-200 hover:bg-blue-700 hover:text-white"}`}
-                    >
-                      Dev
-                    </ToggleGroup.Item>
+                    {environments.map(({ value, label }, idx, arr) => (
+                      <ToggleGroup.Item
+                        key={value}
+                        value={value}
+                        className={`px-3 py-1.5 font-semibold transition-colors
+                          ${idx === 0 ? "rounded-l-lg" : ""}
+                          ${idx === arr.length - 1 ? "rounded-r-lg" : ""}
+                          ${env === value
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-800 text-gray-200 hover:bg-blue-700 hover:text-white"}`}
+                      >
+                        {label}
+                      </ToggleGroup.Item>
+                    ))}
                   </ToggleGroup.Root>
                 </Tooltip.Trigger>
                 <Tooltip.Portal>
@@ -139,12 +191,25 @@ function App() {
                 </Tooltip.Portal>
               </Tooltip.Root>
             </Tooltip.Provider>
+            {/* Subscription ID textbox */}
+            {false && userType === "session" && env !== "dev" && (
+              <input
+                type="text"
+                className="ml-4 px-3 py-1.5 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 text-white bg-gray-800"
+                placeholder="Subscription ID"
+                value={subsIdInput}
+                onChange={handleSubsIdChange}
+                style={{ minWidth: 180 }}
+                disabled
+                hidden
+              />
+            )}
           </div>
         </div>
       </nav>
       {/* Main Content */}
       <main className="container mx-auto p-6 bg-gradient-to-br from-gray-50 via-white to-blue-50 min-h-[80vh] rounded-xl shadow mt-6">
-        <PageComponent />
+        <PageComponent {...pageProps} />
       </main>
     </EnvContext.Provider>
   );
