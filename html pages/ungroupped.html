@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing page html</title>
+
+    <script>
+      async function pricingPage() {
+        const response = await fetch(
+          'http://localhost:5001/generate_pricing_page_session',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        const res = await response.json();
+        return res;
+      }
+
+      function onLoad() {
+        Pricify.setVisitor({
+          firstName: 'Jssssohn',
+          lastName: 'Doe',
+          email: 'john.doe@example.com',
+          phone: '+1-123-456-7890',
+          company: 'Example Inc.',
+        });
+
+        // Set billing address with dummy data
+        Pricify.setBillingAddress({
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john.doe@example.com',
+          phone: '+1-123-456-7890',
+          company: 'Example Inc.',
+          line1: '123 Main St',
+          line2: 'Apt 4B',
+          city: 'New York',
+          stateCode: 'NY',
+          zip: '10001',
+          country: 'US',
+        });
+
+        // Set shipping address with dummy data
+        Pricify.setShippingAddress({
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john.doe@example.com',
+          phone: '+1-123-456-7890',
+          company: 'Example Inc.',
+          line1: '456 Elm St',
+          line2: 'Suite 200',
+          city: 'Los Angeles',
+          stateCode: 'CA',
+          zip: '90002',
+          country: 'US',
+        });
+
+        // Optionally, set subscription attributes with custom fields
+        Pricify.setSubscriptionAttributes({
+          customFields: {
+            cf_Modification: 'My custom Value',
+            cf_url:'https://test3019-test.chargebee.com/d/subscriptions/Azz2xoUfjFtCr10U6'
+          },
+        });
+        Pricify.setBusinessEntity('business_entity_id');
+        // Pricify.setPriceVariant('fluxus-variant');
+        // Initialize the pricing page
+        Pricify.init();
+        // Pricify.openPricingPage({
+        //   pricingPage: pricingPage,
+        // });
+      }
+    </script>
+    <script
+      src="https://js.chargebee.com/atomicpricing/pricify.js"
+      onload="onLoad()"
+      defer
+    ></script>
+    <!-- <script type="module" src="/src/index.ts" onload="onLoad()"></script> -->
+  </head>
+
+  <body style="background-color: black">
+    <div
+      id="pricify-hosted-pricing-page"
+      data-pricify-site="01JN18CGNHBY3JF591JWJV1T88"
+      data-pricify-pricingpage="01JSKMZX2KXC206NXEVXQDCD3Q"
+      data-pricify-host="http://localhost:8764"
+      data-pricify-gtmid="GTM-NF3XNJSN"
+    ></div>
+  </body>
+</html>

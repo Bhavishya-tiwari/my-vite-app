@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session Ungroupped</title>
+
+    <script>
+      function pricingPage() {
+        return new Promise((resolve) => {
+          resolve({
+            id: "8cde256f9336411e910fbc0bca0c4443",
+            url: "http://localhost:8764/sites/01JN18CGNHBY3JF591JWJV1T88/pricing-session/8cde256f9336411e910fbc0bca0c4443",
+            created_at: 1746777336,
+            expires_at: 9796789093,
+            object: "pricing_page_session",
+          });
+        });
+      }
+      function onLoad() {
+        // Pricify.setPriceVariant('fluxus-variant');
+        Pricify.openPricingPage({
+          pricingPage: pricingPage(),
+        });
+      }
+    </script>
+    <script
+      src="https://js.chargebee.com/atomicpricing/pricify.js"
+      onload="onLoad()"
+      defer
+    ></script>
+  </head>
+
+  <body style="background-color: black">
+    <div
+      id="pricify-hosted-pricing-page"
+      data-pricify-host="http://localhost:8764"
+      data-pricify-gtmid="GTM-NF3XNJSN"
+      data-pricify-integrationtype="api"
+    ></div>
+  </body>
+</html>

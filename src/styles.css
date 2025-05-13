@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+/* Professional base styles */
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
+  color: #1e293b;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}

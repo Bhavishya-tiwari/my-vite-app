@@ -1,0 +1,53 @@
+{
+  "prod": {
+    "ungroupped": { "message": "Prod - UnGroupped data", "items": [1, 2, 3] },
+    "groupped": {
+      "message": "Prod - Groupped data",
+      "groups": [{ "id": 1 }, { "id": 2 }]
+    },
+    "sessionUngroupped": {
+      "message": "Prod - Session UnGroupped",
+      "session": "abc123"
+    },
+    "sessionGroupped": {
+      "message": "Prod - Session Groupped",
+      "session": "xyz789"
+    }
+  },
+  "preprod": {
+    "ungroupped": {
+      "message": "PreProd - UnGroupped data",
+      "items": [4, 5, 6]
+    },
+    "groupped": {
+      "message": "PreProd - Groupped data",
+      "groups": [{ "id": 3 }, { "id": 4 }]
+    },
+    "sessionUngroupped": {
+      "message": "PreProd - Session UnGroupped",
+      "session": "def456"
+    },
+    "sessionGroupped": {
+      "message": "PreProd - Session Groupped",
+      "session": "uvw000"
+    }
+  },
+  "dev": {
+    "ungroupped": {
+      "message": "Dev - UnGroupped data",
+      "items": [7, 8, 9]
+    },
+    "groupped": {
+      "message": "Dev - Groupped data",
+      "groups": [{ "id": 5 }, { "id": 6 }]
+    },
+    "sessionUngroupped": {
+      "message": "Dev - Session UnGroupped",
+      "session": "ghi789"
+    },
+    "sessionGroupped": {
+      "message": "Dev - Session Groupped",
+      "session": "rst111"
+    }
+  }
+}
