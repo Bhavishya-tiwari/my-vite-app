@@ -52,6 +52,7 @@ function App({
   let pageProps = {};
   if (groupType === "ungroupped" && userType === "new-user") {
     PageComponent = UnGroupped;
+    pageProps = { userType };
   } else if (groupType === "groupped" && userType === "new-user") {
     PageComponent = Groupped;
   } else if (groupType === "ungroupped" && userType === "session") {
@@ -216,3 +217,95 @@ function App({
 }
 
 export default App;
+
+// Move JSON editor logic to a reusable function
+export function useJsonKeyEditor() {
+  const [jsonInput, setJsonInput] = useState("");
+  const [jsonKeys, setJsonKeys] = useState([]);
+  const [jsonError, setJsonError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
+  function handleShowPricingPage() {
+    setJsonError("");
+    setSuccessMsg("");
+    let parsed;
+    try {
+      parsed = JSON.parse(jsonInput);
+      if (!parsed || typeof parsed !== "object") {
+        setJsonKeys([]);
+        setJsonError("Parsed value is not an object.");
+        return;
+      }
+      setJsonKeys(Object.keys(parsed));
+    } catch (e) {
+      setJsonKeys([]);
+      setJsonError("Invalid JSON: " + e.message);
+      return;
+    }
+
+    // Try to extract sessionData from the parsed object
+    let sessionData = parsed.sessionData ? parsed.sessionData : parsed;
+    if (!sessionData || typeof sessionData !== "object" || !sessionData.url) {
+      setJsonError("No valid sessionData found in JSON.");
+      return;
+    }
+
+    // Call Pricify.openPricingPage
+    function openPricing() {
+      if (window.Pricify) {
+        window.Pricify.openPricingPage({
+          pricingPage: sessionData,
+        });
+        setSuccessMsg("Pricing page opened!");
+      } else {
+        setTimeout(openPricing, 100);
+      }
+    }
+    openPricing();
+  }
+
+  // Return a component to render
+  function JsonKeyEditorComponent() {
+    return (
+      <div className="container mx-auto mt-8 mb-2 p-4 bg-white rounded shadow flex flex-col gap-2 max-w-2xl">
+        <label className="font-semibold text-gray-700 mb-1">
+          Paste JSON here:
+        </label>
+        <textarea
+          className="border border-gray-300 rounded p-2 font-mono text-sm bg-gray-50"
+          rows={4}
+          value={jsonInput}
+          onChange={e => setJsonInput(e.target.value)}
+          placeholder='Paste JSON here...'
+        />
+        <div className="flex items-center gap-2">
+          <button
+            className="bg-blue-600 text-white px-4 py-1.5 rounded hover:bg-blue-700 font-semibold"
+            onClick={handleShowPricingPage}
+            type="button"
+          >
+            Show Pricing Page
+          </button>
+          {jsonError && (
+            <span className="text-red-600 text-sm ml-2">{jsonError}</span>
+          )}
+          {successMsg && (
+            <span className="text-green-600 text-sm ml-2">{successMsg}</span>
+          )}
+        </div>
+        {jsonKeys.length > 0 && (
+          <div className="mt-2">
+            <span className="font-medium text-gray-700">Top-level keys:</span>
+            <ul className="list-disc list-inside text-gray-800 mt-1">
+              {jsonKeys.map(key => (
+                <li key={key} className="font-mono">{key}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return JsonKeyEditorComponent;
+}

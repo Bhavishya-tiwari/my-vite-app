@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { EnvContext } from "../App";
+import { EnvContext, useJsonKeyEditor } from "../App";
 import Pricify from "@chargebee/atomicpricing";
 
-function UnGroupped() {
+function UnGroupped({ userType }) {
   const { env } = useContext(EnvContext);
   const [data, setData] = useState(null);
   const [globals, setGlobals] = useState(null);
+  const JsonKeyEditor = useJsonKeyEditor();
 
   useEffect(() => {
     // Fetch globals and env data in parallel
@@ -48,6 +49,7 @@ function UnGroupped() {
         data-pricify-pricingpage={data?.pricingpageid}
         data-pricify-gtmid={data?.gtmid}
       ></div>
+      {userType === "session" && <JsonKeyEditor />}
     </div>
   );
 }

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { EnvContext } from "../App";
+import { EnvContext, useJsonKeyEditor } from "../App";
 
 function SessionUnGroupped({ subsId }) {
   const { env } = useContext(EnvContext);
   const [data, setData] = useState(null);
+  const JsonKeyEditor = useJsonKeyEditor();
 
   useEffect(() => {
     fetch(`/my-vite-app/data/${env}.json`)
@@ -66,6 +67,7 @@ function SessionUnGroupped({ subsId }) {
         data-pricify-integrationtype="api"
         style={{ minHeight: 400 }}
       ></div>
+      {<JsonKeyEditor />}
     </div>
   );
 }

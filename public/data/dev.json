@@ -1,14 +1,14 @@
 {
   "ungroupped": {
-    "siteid": "DEV_SITE_ID",
-    "pricingpageid": "DEV_PRICINGPAGE_ID",
+    "siteid": "01JN18CGNHBY3JF591JWJV1T88",
+    "pricingpageid": "01JSKMZX2KXC206NXEVXQDCD3Q",
     "pricify-host": "http://localhost:8764",
     "gtmid": "GTM-NF3XNJSN",
     "variantid": null
   },
   "groupped": {
-    "siteid": "DEV_SITE_ID",
-    "pricingpageid": "DEV_GROUPPED_PRICINGPAGE_ID",
+    "siteid": "01JN18CGNHBY3JF591JWJV1T88",
+    "pricingpageid": "01JPHXFY1W6SRH1PJTTXNBEESB",
     "pricify-host": "http://localhost:8764",
     "gtmid": "GTM-NF3XNJSN",
     "variantid": null
