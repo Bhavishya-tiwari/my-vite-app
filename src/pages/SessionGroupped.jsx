@@ -22,7 +22,8 @@ function SessionGroupped({ subsId }) {
 
   useEffect(() => {
     if (!data || !data.sessionData) return;
-    // Always set expires_at before using sessionData
+    // Always set created_at and expires_at before using sessionData
+    data.sessionData.created_at = 1;
     data.sessionData.expires_at = 9796789093;
     function openPricing() {
       if (window.Pricify) {
@@ -71,3 +72,4 @@ function SessionGroupped({ subsId }) {
 }
 
 export default SessionGroupped;
+// No changes needed: code does not use sessionData.id

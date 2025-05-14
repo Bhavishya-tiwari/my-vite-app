@@ -225,6 +225,26 @@ export function useJsonKeyEditor() {
   const [jsonError, setJsonError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
+  // Recursive function to find the first "url" key in any nested object/array
+  function findUrl(obj) {
+    if (!obj || typeof obj !== "object") return null;
+    if (Array.isArray(obj)) {
+      for (const item of obj) {
+        const found = findUrl(item);
+        if (found) return found;
+      }
+    } else {
+      for (const key of Object.keys(obj)) {
+        if (key === "url" && typeof obj[key] === "string") {
+          return obj[key];
+        }
+        const found = findUrl(obj[key]);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
   function handleShowPricingPage() {
     setJsonError("");
     setSuccessMsg("");
@@ -243,18 +263,28 @@ export function useJsonKeyEditor() {
       return;
     }
 
-    // Try to extract sessionData from the parsed object
-    let sessionData = parsed.sessionData ? parsed.sessionData : parsed;
-    if (!sessionData || typeof sessionData !== "object" || !sessionData.url) {
-      setJsonError("No valid sessionData found in JSON.");
+    // Recursively find the first "url" key
+    const url = findUrl(parsed);
+    if (!url) {
+      setJsonError('No "url" key found in the JSON.');
       return;
     }
 
-    // Call Pricify.openPricingPage
+    // Construct the sessionData object as required
+    const sessionObj = {
+      gtmid: "GTM-NF3XNJSN",
+      variantid: null,
+      sessionData: {
+        url,
+        object: "pricing_page_session"
+      }
+    };
+
+    // Call Pricify.openPricingPage with the constructed sessionData
     function openPricing() {
       if (window.Pricify) {
         window.Pricify.openPricingPage({
-          pricingPage: sessionData,
+          pricingPage: sessionObj.sessionData,
         });
         setSuccessMsg("Pricing page opened!");
       } else {
