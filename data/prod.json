@@ -17,10 +17,7 @@
     "gtmid": "GTM-NF3XNJSN",
     "variantid": null,
     "sessionData": {
-      "id": "6f73b1072d47428fb3f591b8c58cfc8a",
       "url": "https://hosted.atomicpricing.com/sites/01J7G5NCJBVSTSBEBKDAHN03PA/pricing-session/6f73b1072d47428fb3f591b8c58cfc8a",
-      "created_at": 1747165658,
-      "expires_at": 9796789093,
       "object": "pricing_page_session"
     }
   },
@@ -28,10 +25,7 @@
     "gtmid": "GTM-NF3XNJSN",
     "variantid": null,
     "sessionData": {
-      "id": "d6d185e3fae54e428c0b9470fcdcddf5",
       "url": "https://hosted.atomicpricing.com/sites/01J7G5NCJBVSTSBEBKDAHN03PA/pricing-session/d6d185e3fae54e428c0b9470fcdcddf5",
-      "created_at": 1746777336,
-      "expires_at": 9796789093,
       "object": "pricing_page_session"
     }
   }

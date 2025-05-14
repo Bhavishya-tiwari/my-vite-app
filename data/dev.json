@@ -17,10 +17,7 @@
     "gtmid": "GTM-NF3XNJSN",
     "variantid": null,
     "sessionData": {
-      "id": "8cde256f9336411e910fbc0bca0c4443",
-      "url": "http://localhost:8764/sites/DEV_SITE_ID/pricing-session/8cde256f9336411e910fbc0bca0c4443",
-      "created_at": 1746777336,
-      "expires_at": 9796789093,
+      "url": "http://localhost:8764/sites/01JN18CGNHBY3JF591JWJV1T88/pricing-session/3ea326f1c91f455296fac84b351ca3b5",
       "object": "pricing_page_session"
     }
   },
@@ -28,10 +25,7 @@
     "gtmid": "GTM-NF3XNJSN",
     "variantid": null,
     "sessionData": {
-      "id": "8cde256f9336411e910fbc0bca0c4443",
       "url": "http://localhost:8764/sites/DEV_SITE_ID/pricing-session/8cde256f9336411e910fbc0bca0c4443",
-      "created_at": 1746777336,
-      "expires_at": 9796789093,
       "object": "pricing_page_session"
     }
   }
