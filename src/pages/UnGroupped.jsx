@@ -38,6 +38,18 @@ function UnGroupped({ userType }) {
   return (
     <div>
       <h1 className="text-3xl font-bold">UnGroupped ({env})</h1>
+      {/* Show extracted siteId and pricingPageId for debug/demo */}
+      {data?.siteid && (
+        <div className="mb-2 text-green-700 font-semibold">
+          Site ID: <span className="font-mono">{data.siteid}</span>
+        </div>
+      )}
+      {data?.pricingpageid && (
+        <div className="mb-2 text-purple-700 font-semibold">
+          Pricing Page ID:{" "}
+          <span className="font-mono">{data.pricingpageid}</span>
+        </div>
+      )}
       <div
         id="pricify-hosted-pricing-page"
         data-pricify-site={data?.siteid}

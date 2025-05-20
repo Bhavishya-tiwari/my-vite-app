@@ -11,12 +11,17 @@ function SessionGroupped({ subsId }) {
       .then((json) => setData(json.sessionGroupped));
   }, [env]);
 
-  // Extract siteId from sessionData.url
+  // Extract siteId and pricingPageId from sessionData.url if possible
   let siteId = null;
+  let pricingPageId = null;
   if (data && data.sessionData && data.sessionData.url) {
     const match = data.sessionData.url.match(/sites\/([^/]+)\//);
     if (match) {
       siteId = match[1];
+    }
+    // Try to extract pricingPageId from data if present
+    if (data.pricingpageid) {
+      pricingPageId = data.pricingpageid;
     }
   }
 
@@ -49,10 +54,15 @@ function SessionGroupped({ subsId }) {
   return (
     <div>
       <h1 className="text-3xl font-bold">Session-Groupped ({env})</h1>
-      {/* Show extracted siteId for debug/demo */}
+      {/* Show extracted siteId and pricingPageId for debug/demo */}
       {siteId && (
         <div className="mb-2 text-green-700 font-semibold">
           Site ID: <span className="font-mono">{siteId}</span>
+        </div>
+      )}
+      {pricingPageId && (
+        <div className="mb-2 text-purple-700 font-semibold">
+          Pricing Page ID: <span className="font-mono">{pricingPageId}</span>
         </div>
       )}
       {subsId && (
