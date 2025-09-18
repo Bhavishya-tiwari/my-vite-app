@@ -4,12 +4,18 @@ import { EnvContext, useJsonKeyEditor } from "../App";
 function SessionUnGroupped({ subsId }) {
   const { env } = useContext(EnvContext);
   const [data, setData] = useState(null);
+  const [globals, setGlobals] = useState(null);
   const JsonKeyEditor = useJsonKeyEditor();
 
   useEffect(() => {
-    fetch(`/my-vite-app/data/${env}.json`)
-      .then((res) => res.json())
-      .then((json) => setData(json.sessionUngroupped));
+    // Fetch globals and env data in parallel
+    Promise.all([
+      fetch("/my-vite-app/data/globals.json").then((res) => res.json()),
+      fetch(`/my-vite-app/data/${env}.json`).then((res) => res.json()),
+    ]).then(([globalsJson, envJson]) => {
+      setGlobals(globalsJson);
+      setData(envJson.sessionUngroupped);
+    });
   }, [env]);
 
   // Extract siteId and pricingPageId from sessionData.url if possible
@@ -74,7 +80,7 @@ function SessionUnGroupped({ subsId }) {
       <div
         id="pricify-hosted-pricing-page"
         {...pricifyHostProps}
-        data-pricify-gtmid={data?.gtmid}
+        data-pricify-gtmid={globals?.gtmid}
         data-pricify-integrationtype="api"
         style={{ minHeight: 400 }}
       ></div>

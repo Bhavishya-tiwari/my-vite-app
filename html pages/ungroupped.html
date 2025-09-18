@@ -21,74 +21,24 @@
       }
 
       function onLoad() {
-        Pricify.setVisitor({
-          firstName: 'Jssssohn',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          phone: '+1-123-456-7890',
-          company: 'Example Inc.',
-        });
-
-        // Set billing address with dummy data
-        Pricify.setBillingAddress({
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          phone: '+1-123-456-7890',
-          company: 'Example Inc.',
-          line1: '123 Main St',
-          line2: 'Apt 4B',
-          city: 'New York',
-          stateCode: 'NY',
-          zip: '10001',
-          country: 'US',
-        });
-
-        // Set shipping address with dummy data
-        Pricify.setShippingAddress({
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          phone: '+1-123-456-7890',
-          company: 'Example Inc.',
-          line1: '456 Elm St',
-          line2: 'Suite 200',
-          city: 'Los Angeles',
-          stateCode: 'CA',
-          zip: '90002',
-          country: 'US',
-        });
-
-        // Optionally, set subscription attributes with custom fields
-        Pricify.setSubscriptionAttributes({
-          customFields: {
-            cf_Modification: 'My custom Value',
-            cf_url:'https://test3019-test.chargebee.com/d/subscriptions/Azz2xoUfjFtCr10U6'
-          },
-        });
-        Pricify.setBusinessEntity('business_entity_id');
-        // Pricify.setPriceVariant('fluxus-variant');
-        // Initialize the pricing page
         Pricify.init();
-        // Pricify.openPricingPage({
-        //   pricingPage: pricingPage,
-        // });
       }
     </script>
     <script
-      src="https://js.chargebee.com/atomicpricing/pricify.js"
+    src="https://js.devcb.in/atomicpricing/pricify.js"
       onload="onLoad()"
       defer
     ></script>
     <!-- <script type="module" src="/src/index.ts" onload="onLoad()"></script> -->
   </head>
 
-  <body style="background-color: black">
-    <div
-      id="pricify-hosted-pricing-page"
-      data-pricify-site="01JN18CGNHBY3JF591JWJV1T88"
-      data-pricify-pricingpage="01JSKMZX2KXC206NXEVXQDCD3Q"
-      data-pricify-gtmid="GTM-NF3XNJSN"
-    ></div>
+  <div
+	id="pricify-hosted-pricing-page"
+	data-pricify-site="01JZ7QEP2H33EWHCYBRVD2DC3E"
+	data-pricify-pricingpage="01K0BP7KBMS3PZV454AR9DE6GY"
+	data-pricify-viewport-defaultheight="1485.40625px"
+	data-pricify-autoselectlocalcurrency="true"
+  data-pricing-table-host="https://cb-pricify-hosted-git-chore-geolocation-refactoring-chargebee.vercel.app"
+></div>
   </body>
 </html>

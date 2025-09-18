@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricify JS</title>
+
+    <script>
+      function onLoad() {
+        Pricify.setVisitor({ firstName: '1', lastName: '1' });
+        Pricify.setVisitor({
+          firstName: 'fn',
+          lastName: 'ln',
+          customFields: { cf_custom_field: 'custom' },
+        });
+        Pricify.setQuantity(2);
+        Pricify.setQuantity(4, {
+          siteId: '01HAK651RC656ZT1XTFK7X9R9M',
+          pricingPageId: '01HAK655KXKW1TSF0GDMN9C33V',
+        });
+        Pricify.setBillingAddress({ company: 'Chargebee', city: 'Chennai' });
+        Pricify.setShippingAddress({ line1: 'Brigade Vantage', country: 'IN' });
+        // Pricify.setBusinessEntity('business_e_2');
+        // Pricify.setPriceVariant('Canada-Email-channel');
+        Pricify.init();
+        // Pricify.openPricingPage({
+        //   pricingPage: async () => {
+        //     console.log('In openPricingPage callback');
+        //     const res = fetch(
+        //       'http://localhost:8761/api/v1/public/get_session',
+        //       {
+        //         method: 'GET',
+        //       },
+        //     ).then((response) => response.json());
+        //     return Promise.resolve(res);
+        //   },
+        // });
+      }
+    </script>
+
+    <!-- <script type="module" src="/src/index.ts" data-pricify-auto-bootstrap="true"></script> -->
+    <script type="module" src="/src/index.ts" onload="onLoad()"></script>
+
+    <!-- <script src="https://js.stagingcb.com/atomicpricing/pricify.js" data-pricify-auto-bootstrap="true"></script> -->
+    <!-- <script src="https://js.stagingcb.com/atomicpricing/pricify.js" onload="onLoad()" defer></script> -->
+
+    <!-- <script src="https://js.chargebee.com/atomicpricing/pricify.js" data-pricify-auto-bootstrap="true"></script> -->
+    <!-- <script src="https://js.chargebee.com/atomicpricing/pricify.js" onload="onLoad()" defer></script> -->
+  </head>
+
+  <body style="background-color: black">
+    <!-- <div
+      id="pricify-hosted-pricing-page"
+      data-pricify-host="http://localhost:8764"
+      data-pricify-integrationtype="api"
+    ></div> -->
+    <div
+      id="pricify-hosted-pricing-page"
+      data-pricify-host="http://localhost:8764"
+      data-pricify-site="01JN18CGNHBY3JF591JWJV1T88"
+      data-pricify-pricingpage="01JPHXFY1W6SRH1PJTTXNBEESB"
+    ></div>
+
+    <!-- <div
+      id="pricify-hosted-pricing-page"
+      data-pricify-site="01HC9JG8P40RREXS1J310PT2HK"
+      data-pricify-pricingpage="01HC9JGBT1ED3N03VZQ68XWQJP"
+      data-pricify-host="http://localhost:8764"
+    > -->
+    <!-- <div id="pricify-hosted-pricing-page"
+      data-pricify-site="01HHHFX6THPBD4DXHCPV0MYFRE"
+      data-pricify-pricingpage="01HHHFXBASSF2NH877T38X0T7W"
+      data-pricify-host="https://hosted.devpricify.com"
+    > -->
+
+    <!-- <div id="pricify-hosted-pricing-page"
+      data-pricify-site="01H2FXJNF0QSTR3QZ1NREV7EJQ"
+      data-pricify-pricingpage="01H2FXMCCKSFKYG2VWDG9TG7VY"
+    > -->
+
+    <!-- data-pricify-preview="true" -->
+    <!-- data-pricify-viewport-width="1000px" -->
+    <!-- data-pricify-viewport-height="1000px" -->
+    <!-- data-pricify-currency="INR" -->
+    <!-- data-pricify-period="1" -->
+    <!-- data-pricify-periodUnit="year" -->
+    <!-- data-pricify-showcurrencydropdown="false" -->
+    <!-- data-pricify-autoselectlocalcurrency="true" -->
+    <!-- </div> -->
+    <div
+      style="
+        margin: 10px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      "
+    >
+      <div>
+        <label>Quantity:</label>
+        <input type="text" id="pricify-quantity" style="width: 350px" />
+        <button
+          onclick="Pricify.setQuantity(document.getElementById('pricify-quantity').value)"
+        >
+          Set Quantity
+        </button>
+      </div>
+      <div>
+        <label>Business Entity:</label>
+        <input type="text" id="pricify-business-entity" style="width: 350px" />
+        <button
+          onclick="Pricify.setBusinessEntity(document.getElementById('pricify-business-entity').value)"
+        >
+          Set Business Entity
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -16,7 +16,7 @@ function App({
   userOptions,
   environments
 }) {
-  const [env, setEnv] = useState(environments?.[0]?.value || "prod");
+  const [env, setEnv] = useState(environments?.[2]?.value || "prod");
   const [groupType, setGroupType] = useState(groupOptions?.[0]?.value || "ungroupped");
   const [userType, setUserType] = useState(userOptions?.[0]?.value || "new-user");
   const { getSubsId, setSubsId } = useContext(SubsIdContext);
@@ -224,6 +224,14 @@ export function useJsonKeyEditor() {
   const [jsonKeys, setJsonKeys] = useState([]);
   const [jsonError, setJsonError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [gtmid, setGtmid] = useState("");
+
+  // Fetch GTMID from globals.json on mount
+  useEffect(() => {
+    fetch("/my-vite-app/data/globals.json")
+      .then(res => res.json())
+      .then(json => setGtmid(json.gtmid || ""));
+  }, []);
 
   // Recursive function to find the first "url" key in any nested object/array
   function findUrl(obj) {
@@ -272,7 +280,7 @@ export function useJsonKeyEditor() {
 
     // Construct the sessionData object as required
     const sessionObj = {
-      gtmid: "GTM-NF3XNJSN",
+      gtmid: gtmid,
       variantid: null,
       sessionData: {
         url,

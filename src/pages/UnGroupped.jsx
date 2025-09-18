@@ -24,6 +24,7 @@ function UnGroupped({ userType }) {
     function initPricify() {
       if (typeof Pricify !== "undefined") {
         Pricify.setVisitor(globals.visitor);
+        Pricify.setBusinessEntity('my-business-entity'); // Set a default business entity if needed
         Pricify.setBillingAddress(globals.billingAddress);
         Pricify.setShippingAddress(globals.shippingAddress);
         Pricify.setSubscriptionAttributes(globals.subscriptionAttributes);
@@ -59,7 +60,7 @@ function UnGroupped({ userType }) {
           ? { "data-pricify-host": "http://localhost:8764" }
           : {})}
         data-pricify-pricingpage={data?.pricingpageid}
-        data-pricify-gtmid={data?.gtmid}
+        data-pricify-gtmid={globals?.gtmid}
       ></div>
       {userType === "session" && <JsonKeyEditor />}
     </div>

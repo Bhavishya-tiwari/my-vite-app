@@ -4,11 +4,17 @@ import { EnvContext } from "../App";
 function SessionGroupped({ subsId }) {
   const { env } = useContext(EnvContext);
   const [data, setData] = useState(null);
+  const [globals, setGlobals] = useState(null);
 
   useEffect(() => {
-    fetch(`/my-vite-app/data/${env}.json`)
-      .then((res) => res.json())
-      .then((json) => setData(json.sessionGroupped));
+    // Fetch globals and env data in parallel
+    Promise.all([
+      fetch("/my-vite-app/data/globals.json").then((res) => res.json()),
+      fetch(`/my-vite-app/data/${env}.json`).then((res) => res.json()),
+    ]).then(([globalsJson, envJson]) => {
+      setGlobals(globalsJson);
+      setData(envJson.sessionGroupped);
+    });
   }, [env]);
 
   // Extract siteId and pricingPageId from sessionData.url if possible
@@ -73,7 +79,7 @@ function SessionGroupped({ subsId }) {
       <div
         id="pricify-hosted-pricing-page"
         {...pricifyHostProps}
-        data-pricify-gtmid={data?.gtmid}
+        data-pricify-gtmid={globals?.gtmid}
         data-pricify-integrationtype="api"
         style={{ minHeight: 400 }}
       ></div>

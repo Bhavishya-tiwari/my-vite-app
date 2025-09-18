@@ -26,6 +26,7 @@ function Groupped() {
         Pricify.setBillingAddress(globals.billingAddress);
         Pricify.setShippingAddress(globals.shippingAddress);
         Pricify.setSubscriptionAttributes(globals.subscriptionAttributes);
+        Pricify.setBusinessEntity('my-business-entity'); 
         Pricify.init();
       } else {
         setTimeout(initPricify, 100);
@@ -57,7 +58,7 @@ function Groupped() {
           ? { "data-pricify-host": "http://localhost:8764" }
           : {})}
         data-pricify-pricingpage={data?.pricingpageid}
-        data-pricify-gtmid={data?.gtmid}
+        data-pricify-gtmid={globals?.gtmid}
       ></div>
     </div>
   );
